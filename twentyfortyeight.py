@@ -3,6 +3,10 @@ Clone of 2048 game.
 """
 
 import poc_2048_gui
+import random
+
+# This gives a 90% chance of selecting a 2 and a 10% chance of selecting a 4
+WEIGHTED_NUMB_LIST = [2, 2, 2, 2, 2, 2, 2, 2, 2, 4]
 
 # Directions, DO NOT MODIFY
 UP = 1
@@ -86,6 +90,7 @@ class TwentyFortyEight:
     def __init__(self, grid_height, grid_width):
         self.height = grid_height
         self.width = grid_width
+        self.grid_dict = {}
         
         # Initilize a new grid by calling reset
         TwentyFortyEight.reset(self)
@@ -94,18 +99,24 @@ class TwentyFortyEight:
         """
         Reset the game so the grid is empty except for two
         initial tiles.
-        """
-        # First need to initialize a blank dictionary that stores 
-        # grid index as keys and the value is the number
-        grid_dict = {}
-        
-        # Next iterate through the height and width, adding that index to 
-        # the grid_dict as a tuple and setting the value to zero
+        """        
+        # First iterate through the height and width, adding that index to 
+        # the self.grid_dict as a tuple and setting the value to zero
         for dummy_i in range(self.width):
             for dummy_j in range(self.height):
-                grid_dict[(dummy_j, dummy_i)] = 0
-                
-        print grid_dict
+                self.grid_dict[(dummy_j, dummy_i)] = 0
+        
+        print "before new tile"
+        print self.grid_dict
+        print ""
+        
+        # Change two random tiles (if value is zero) to two or four
+        counter = 0
+        while counter < 2:
+            if TwentyFortyEight.new_tile(self) is True:
+                counter += 1
+        print "after new tile"
+        print self.grid_dict
 
     def __str__(self):
         """
@@ -142,8 +153,20 @@ class TwentyFortyEight:
         square.  The tile should be 2 90% of the time and
         4 10% of the time.
         """
-        # replace with your code
-        pass
+        # Randomly select an index
+        def rand_index_select():
+            rand_height = random.randint(0,self.height - 1)
+            rand_width = random.randint(0,self.width - 1)
+            rand_index = (rand_height, rand_width)
+            return rand_index
+        
+        # if the value of that index (key in dictionary) is 0,
+        # change the value to two
+        rand_index_tile = rand_index_select()
+        
+        if self.grid_dict.get(rand_index_tile) == 0:
+            self.grid_dict[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
+            return True
 
     def set_tile(self, row, col, value):
         """
