@@ -27,18 +27,12 @@ def merge(line):
     """
     non_zero_list = []
     len_list = len(line)
-#    print "Input list"
-#    print line
-#    print ""
     
     # for loop that appends all non zero numbers in line
     # to a new list.  This list will be modified and output.
     for index in line:
         if index != 0:
             non_zero_list.append(index)
-#    print "Original Non-zero list"
-#    print non_zero_list
-#    print ""
     
     # now merge adjacent numbers from left to right if same.
     len_non_zero_list = len(non_zero_list)
@@ -49,9 +43,6 @@ def merge(line):
         if non_zero_list[nz_index] == non_zero_list[nz_index + 1]:
             non_zero_list[nz_index] = non_zero_list[nz_index] * 2
             non_zero_list[nz_index + 1] = 0
-#    print "Quasi-merged non-zero list"
-#    print non_zero_list
-#    print ""
     
     # Now, need to remove the zero's from modified list
     # need a placeholder list so don't modify list in loop.
@@ -68,10 +59,6 @@ def merge(line):
     for place_index in placeholder_list:
         non_zero_list.pop(place_index - step)
         step += 1
-    
-#    print "No zero modified non zero list"
-#    print non_zero_list
-#    print ""
 
     # finally, need to append zeros to non_zero_list so that it
     # is the same length as the input list
@@ -79,8 +66,6 @@ def merge(line):
     list_diff = len_list - len_mod_non_zero_list
     for dummy_num in range(0, list_diff):
         non_zero_list.append(0)
-    
-#    print "Final list"
     return non_zero_list
 
 class TwentyFortyEight:
@@ -106,38 +91,44 @@ class TwentyFortyEight:
             for dummy_j in range(self.height):
                 self.grid_dict[(dummy_j, dummy_i)] = 0
         
-        print "before new tile"
-        print self.grid_dict
-        print ""
-        
         # Change two random tiles (if value is zero) to two or four
         counter = 0
         while counter < 2:
             if TwentyFortyEight.new_tile(self) is True:
                 counter += 1
-        print "after new tile"
-        print self.grid_dict
 
     def __str__(self):
         """
         Return a string representation of the grid for debugging.
         """
-        # replace with your code
-        return ""
+        # First make an empty string
+        col_str = ""
+        
+        #need to make a column that contains the indexes of widthth
+        dummy_col = range(0,TwentyFortyEight.get_grid_width(self))
+        
+        # for loop will set the first row values using dummy column
+        # as the col_str, when complete with the row, 
+        # it prints a new line using \n,
+        # next, it repeats this for every row
+        # finally it returns the entire string as a simple grid of numbers
+        for i in range(TwentyFortyEight.get_grid_height(self)):
+            for j in dummy_col:
+                col_str += str(TwentyFortyEight.get_tile(self,i, j)) + " "
+            col_str += "\n"
+        return col_str
 
     def get_grid_height(self):
         """
         Get the height of the board.
         """
-        # replace with your code
-        return 0
+        return self.height
 
     def get_grid_width(self):
         """
         Get the width of the board.
         """
-        # replace with your code
-        return 0
+        return self.width
 
     def move(self, direction):
         """
@@ -153,17 +144,17 @@ class TwentyFortyEight:
         square.  The tile should be 2 90% of the time and
         4 10% of the time.
         """
-        # Randomly select an index
+        # Function that randomly selects an index
         def rand_index_select():
             rand_height = random.randint(0,self.height - 1)
             rand_width = random.randint(0,self.width - 1)
             rand_index = (rand_height, rand_width)
             return rand_index
         
-        # if the value of that index (key in dictionary) is 0,
-        # change the value to two
+        # If the value of that index (key in dictionary) is 0,
+        # change the value to two.  Call random index first.
+        # Uses constant WEIGHTED_NUMB_LIST to ensure correct percentage
         rand_index_tile = rand_index_select()
-        
         if self.grid_dict.get(rand_index_tile) == 0:
             self.grid_dict[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
             return True
@@ -179,9 +170,8 @@ class TwentyFortyEight:
         """
         Return the value of the tile at position row, col.
         """
-        # replace with your code
-        return 0
+        return self.grid_dict[(row, col)]
 
 
 #poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
-TwentyFortyEight(2, 3)
+print TwentyFortyEight(4, 4)
