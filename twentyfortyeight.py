@@ -87,8 +87,9 @@ class TwentyFortyEight:
         """        
         # First iterate through the height and width, adding that index to 
         # the self.grid_dict as a tuple and setting the value to zero
-        for dummy_i in range(self.width):
-            for dummy_j in range(self.height):
+        for dummy_i in range(TwentyFortyEight.get_grid_width(self)):
+            for dummy_j in range(TwentyFortyEight.get_grid_height(self)):
+                #### remember to call method for setting numbers when created
                 self.grid_dict[(dummy_j, dummy_i)] = 0
         
         # Change two random tiles (if value is zero) to two or four
@@ -112,9 +113,9 @@ class TwentyFortyEight:
         # it prints a new line using \n,
         # next, it repeats this for every row
         # finally it returns the entire string as a simple grid of numbers
-        for i in range(TwentyFortyEight.get_grid_height(self)):
-            for j in dummy_col:
-                col_str += str(TwentyFortyEight.get_tile(self,i, j)) + " "
+        for dummy_i in range(TwentyFortyEight.get_grid_height(self)):
+            for dummy_j in dummy_col:
+                col_str += str(TwentyFortyEight.get_tile(self,dummy_i, dummy_j)) + " "
             col_str += "\n"
         return col_str
 
