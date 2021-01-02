@@ -73,13 +73,14 @@ class TwentyFortyEight:
     Class to run the gameogic.
     """
     def __init__(self, grid_height, grid_width):
-        self.height = grid_height
-        self.width = grid_width
-        self.grid_dict = {}
+        self.grid_h = grid_height
+        self.grid_w = grid_width
+        self.grid_dictionary = {}
         
         # Initilize a new grid by calling reset
         TwentyFortyEight.reset(self)
-
+        ##self.set_tile(0,0,8) #testing set_tile
+        
     def reset(self):
         """
         Reset the game so the grid is empty except for two
@@ -90,7 +91,7 @@ class TwentyFortyEight:
         for dummy_i in range(TwentyFortyEight.get_grid_width(self)):
             for dummy_j in range(TwentyFortyEight.get_grid_height(self)):
                 #### remember to call method for setting numbers when created
-                self.grid_dict[(dummy_j, dummy_i)] = 0
+                TwentyFortyEight.set_tile(self,dummy_j, dummy_i, 0)
         
         # Change two random tiles (if value is zero) to two or four
         counter = 0
@@ -123,13 +124,13 @@ class TwentyFortyEight:
         """
         Get the height of the board.
         """
-        return self.height
+        return self.grid_h
 
     def get_grid_width(self):
         """
         Get the width of the board.
         """
-        return self.width
+        return self.grid_w
 
     def move(self, direction):
         """
@@ -147,8 +148,11 @@ class TwentyFortyEight:
         """
         # Function that randomly selects an index
         def rand_index_select():
-            rand_height = random.randint(0,self.height - 1)
-            rand_width = random.randint(0,self.width - 1)
+            """
+            This function randomly selects a tile within the gid
+            """
+            rand_height = random.randint(0,TwentyFortyEight.get_grid_height(self) - 1)
+            rand_width = random.randint(0,TwentyFortyEight.get_grid_width(self) - 1)
             rand_index = (rand_height, rand_width)
             return rand_index
         
@@ -156,23 +160,24 @@ class TwentyFortyEight:
         # change the value to two.  Call random index first.
         # Uses constant WEIGHTED_NUMB_LIST to ensure correct percentage
         rand_index_tile = rand_index_select()
-        if self.grid_dict.get(rand_index_tile) == 0:
-            self.grid_dict[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
+        if self.grid_dictionary.get(rand_index_tile) == 0:
+            self.grid_dictionary[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
             return True
 
     def set_tile(self, row, col, value):
         """
         Set the tile at position row, col to have the given value.
         """
-        # replace with your code
-        pass
+        self.grid_dictionary[(row, col)] = value
+        return
 
     def get_tile(self, row, col):
         """
         Return the value of the tile at position row, col.
         """
-        return self.grid_dict[(row, col)]
+        return self.grid_dictionary[(row, col)]
 
 
 #poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
 print TwentyFortyEight(4, 4)
+
