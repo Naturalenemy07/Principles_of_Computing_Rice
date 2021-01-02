@@ -73,9 +73,9 @@ class TwentyFortyEight:
     Class to run the gameogic.
     """
     def __init__(self, grid_height, grid_width):
-        self.grid_h = grid_height
-        self.grid_w = grid_width
-        self.grid_dictionary = {}
+        self._height = grid_height
+        self._width = grid_width
+        self._grid_dict = {}
         
         # Initilize a new grid by calling reset
         TwentyFortyEight.reset(self)
@@ -124,13 +124,13 @@ class TwentyFortyEight:
         """
         Get the height of the board.
         """
-        return self.grid_h
+        return self._height
 
     def get_grid_width(self):
         """
         Get the width of the board.
         """
-        return self.grid_w
+        return self._width
 
     def move(self, direction):
         """
@@ -160,22 +160,22 @@ class TwentyFortyEight:
         # change the value to two.  Call random index first.
         # Uses constant WEIGHTED_NUMB_LIST to ensure correct percentage
         rand_index_tile = rand_index_select()
-        if self.grid_dictionary.get(rand_index_tile) == 0:
-            self.grid_dictionary[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
+        if self._grid_dict.get(rand_index_tile) == 0:
+            self._grid_dict[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
             return True
 
     def set_tile(self, row, col, value):
         """
         Set the tile at position row, col to have the given value.
         """
-        self.grid_dictionary[(row, col)] = value
+        self._grid_dict[(row, col)] = value
         return
 
     def get_tile(self, row, col):
         """
         Return the value of the tile at position row, col.
         """
-        return self.grid_dictionary[(row, col)]
+        return self._grid_dict[(row, col)]
 
 
 #poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
