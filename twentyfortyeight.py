@@ -159,13 +159,35 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
+        def preprocess_merge_edit_dict(merge_input_tiles_input):
+            # take merge)input_tile and find value associated with that index, 
+            # append that value to premerged_list
+            premerged_value_list = []            
+            for index in merge_input_tiles_input:
+                premerged_value_list.append(TwentyFortyEight.get_tile(self, index[0], index[1]))
+
+            # pass premerged_list into merge, set equal to merged list[]
+            # use merged_list to set value in grid dictionary
+            merged_value_list = merge(premerged_value_list)
+            
+            # lastly, set the values of the grid
+            dummy_counter = 0
+            for tiles in merge_input_tiles_input:
+                TwentyFortyEight.set_tile(self, tile[0], tile[1], merged_value_list[dummy_counter])
+                dummy_counter += 1
+
+            # need to clear the tiles before moving onto the next initial_tile
+            # clear premerged lst, and merged_list. it will just append, so clear it
+            merge_input_tiles = []
+            merged_value_list = []
+            premerged_value_list = []
+        
         # the initial tiles for any particular movement
         initial_tiles = self.initial_movement_tiles[direction]
         
         # create empty lists, premerged_lists is input for merge()
         # working_tiles store the index of tiles that used by merge()
         # this is important, because will use to change the grid values.
-        premerged_value_list = []
         merge_input_tiles = []
         
         # convert tuple to list in order to perform mutation on tile
@@ -188,27 +210,25 @@ class TwentyFortyEight:
                 for iter_val in range(0, TwentyFortyEight.get_grid_height(self)):
                     merge_input_tiles.append([tile[0] + iter_val * mutate[0], tile[1] + mutate[1]])
                 
-                # take merge)input_tile and find value associated with that index, 
-                # append that value to premerged_list
-                for index in merge_input_tiles:
-                    premerged_value_list.append(TwentyFortyEight.get_tile(self, index[0], index[1]))
-                print "pre-merged:", premerged_value_list
+                # preprocesses the tile indexes, converts to values and edtis dictionary
+                preprocess_merge_edit_dict(merge_input_tiles)
                 
-                # pass premerged_list into merge, set equal to merged list[]
-                # use merged_list to set value in grid dictionary
-                merged_value_list = merge(premerged_value_list)
-                print "merged:", merged_value_list
-                
-                # need to clear the tiles before moving onto the next initial_tile
-                # clear premerged lst, and merged_list. it will just append, so clear it
+                # clear values
                 merge_input_tiles = []
-                merged_value_list = []
-                premerged_value_list = []
                 
             # Second If statement to differentiate direction between up/down and left/right
             # because height and width may be different.    
             if direction is LEFT or direction is RIGHT:
-                print "LEFT or RIGHT"
+                
+                # same process as UP or DOWN, except using grid_width as range
+                for iter_val in range(0, TwentyFortyEight.get_grid_width(self)):
+                    merge_input_tiles.append([tile[0] + mutate[0], tile[1] + iter_val * mutate[1]])
+                
+                # 
+                preprocess_merge_edit_dict(merge_input_tiles)
+                
+                # clear values
+                merge_input_tiles = []
             
     def new_tile(self):
         """
