@@ -77,9 +77,30 @@ class TwentyFortyEight:
         self._width = grid_width
         self._grid_dict = {}
         
+        # initilize the initial tile for move function
+        self._up_tiles = []
+        self._down_tiles = []
+        self._left_tiles = []
+        self._right_tiles = []
+        
+        # logic for initial rows
+        for dummy_tile in range(0, TwentyFortyEight.get_grid_width(self)):
+            # logic for the up and down rows
+            self._up_tiles.append((0, dummy_tile))
+            self._down_tiles.append((TwentyFortyEight.get_grid_height(self) - 1, dummy_tile))
+        for dummy_tile in range(0, TwentyFortyEight.get_grid_height(self)):
+            # logic for the left and right rows
+            self._left_tiles.append((dummy_tile, 0))
+            self._right_tiles.append((dummy_tile, TwentyFortyEight.get_grid_width(self) - 1))
+        
+        # Store all initial tiles in a dictionary where direction of movement is keys
+        self.initial_movement_tiles = {UP: self._up_tiles,
+                                       DOWN: self._down_tiles,
+                                       LEFT: self._left_tiles,
+                                       RIGHT: self._right_tiles}
+        
         # Initilize a new grid by calling reset
         TwentyFortyEight.reset(self)
-        ##self.set_tile(0,0,8) #testing set_tile
         
     def reset(self):
         """
@@ -178,6 +199,6 @@ class TwentyFortyEight:
         return self._grid_dict[(row, col)]
 
 
-#poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
-print TwentyFortyEight(4, 4)
+poc_2048_gui.run_gui(TwentyFortyEight(4, 5))
+#print TwentyFortyEight(4, 4)
 
