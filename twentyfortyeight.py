@@ -98,6 +98,7 @@ class TwentyFortyEight:
                                        DOWN: self._down_tiles,
                                        LEFT: self._left_tiles,
                                        RIGHT: self._right_tiles}
+        print "movement tiles:", self.initial_movement_tiles
         
         # Initilize a new grid by calling reset
         TwentyFortyEight.reset(self)
@@ -158,9 +159,40 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
-        # replace with your code
-        pass
-
+        # the initial tiles for any particular movement
+        initial_tiles = self.initial_movement_tiles[direction]
+        
+        # create empty lists, premerged_lists is input for merge()
+        # working_tiles store the index of tiles that used by merge()
+        # this is important, because will use to change the grid values.
+        premerged_list = []
+        merge_input_tiles = []
+        
+        # For loop will go through each tile in the initial tile, 
+        # pass value of tile to merge and change the grid values
+        # for each tile row/col in intial tile.
+        # If statements differentiate direction between up/down and left/right
+        # because height and width may be different.
+        for tile in initial_tiles:
+            
+            # If statements differentiate direction between up/down and left/right
+            # because height and width may be different.
+            if direction is UP or direction is DOWN:
+                
+                # convert tuple to list in order to perform mutation on tile
+                mutate = list(OFFSETS[direction])
+                
+                # create tiles appended to working_tiles
+                for iter_val in range(0, TwentyFortyEight.get_grid_height(self)):
+                    
+                    
+                print ""
+                
+            # Second If statement to differentiate direction between up/down and left/right
+            # because height and width may be different.    
+            if direction is LEFT or direction is RIGHT:
+                print "LEFT or RIGHT"
+            
     def new_tile(self):
         """
         Create a new tile in a randomly selected empty
