@@ -98,7 +98,6 @@ class TwentyFortyEight:
                                        DOWN: self._down_tiles,
                                        LEFT: self._left_tiles,
                                        RIGHT: self._right_tiles}
-        print "movement tiles:", self.initial_movement_tiles
         
         # Initilize a new grid by calling reset
         TwentyFortyEight.reset(self)
@@ -173,7 +172,7 @@ class TwentyFortyEight:
             # lastly, set the values of the grid
             dummy_counter = 0
             for tiles in merge_input_tiles_input:
-                TwentyFortyEight.set_tile(self, tile[0], tile[1], merged_value_list[dummy_counter])
+                TwentyFortyEight.set_tile(self, tiles[0], tiles[1], merged_value_list[dummy_counter])
                 dummy_counter += 1
 
             # need to clear the tiles before moving onto the next initial_tile
@@ -181,6 +180,9 @@ class TwentyFortyEight:
             merge_input_tiles = []
             merged_value_list = []
             premerged_value_list = []
+            
+            
+            return
         
         # the initial tiles for any particular movement
         initial_tiles = self.initial_movement_tiles[direction]
@@ -269,5 +271,4 @@ class TwentyFortyEight:
 
 
 poc_2048_gui.run_gui(TwentyFortyEight(4, 5))
-#print TwentyFortyEight(4, 4)
 
