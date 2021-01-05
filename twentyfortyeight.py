@@ -158,7 +158,30 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
+        # global variable to determine if tiles moved
+        global move_bool
+        move_bool = False
+        
+        def to_add_tile_ornoto_add_tile(pre_list, post_list):
+            """
+            This definition determines if the pre and post
+            merged values are the same, if not it adds a
+            new tile to the grid
+            """
+            # need to
+            global move_bool
+            
+            if pre_list == post_list:
+                pass
+            else:
+                move_bool = True
+            
         def preprocess_merge_edit_dict(merge_input_tiles_input):
+            """
+            This definition takes in a list of tiles and merges the
+            associated values on the grid.  If finally updates the grid
+            """
+            
             # take merge)input_tile and find value associated with that index, 
             # append that value to premerged_list
             premerged_value_list = []            
@@ -169,19 +192,22 @@ class TwentyFortyEight:
             # use merged_list to set value in grid dictionary
             merged_value_list = merge(premerged_value_list)
             
-            # lastly, set the values of the grid
+            # next, set the values of the grid
             dummy_counter = 0
             for tiles in merge_input_tiles_input:
                 TwentyFortyEight.set_tile(self, tiles[0], tiles[1], merged_value_list[dummy_counter])
                 dummy_counter += 1
 
-            # need to clear the tiles before moving onto the next initial_tile
+            # next, pass the premerged and merged values to 
+            # to_add_tile_ornoto_add_tile() to determine if the 
+            # tiles moved, if so it will add a new tile to the grid
+            to_add_tile_ornoto_add_tile(premerged_value_list, merged_value_list)
+            
+            # lastly, need to clear the tiles before moving onto the next initial_tile
             # clear premerged lst, and merged_list. it will just append, so clear it
             merge_input_tiles = []
             merged_value_list = []
-            premerged_value_list = []
-            
-            
+            premerged_value_list = [] 
             return
         
         # the initial tiles for any particular movement
@@ -231,12 +257,16 @@ class TwentyFortyEight:
                 
                 # clear values
                 merge_input_tiles = []
+        
+        print move_bool
+        if move_bool:
+            TwentyFortyEight.new_tile(self)
             
     def new_tile(self):
         """
         Create a new tile in a randomly selected empty
-        square.  The tile should be 2 90% of the time and
-        4 10% of the time.
+        square.  The tile should be "2" 90% of the time and
+        "4" 10% of the time.
         """
         # Function that randomly selects an index
         def rand_index_select():
