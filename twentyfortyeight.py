@@ -268,6 +268,9 @@ class TwentyFortyEight:
         square.  The tile should be "2" 90% of the time and
         "4" 10% of the time.
         """
+        # Using a while loop to add a new tile, use local variable
+        tile_added = False
+        
         # Function that randomly selects an index
         def rand_index_select():
             """
@@ -277,14 +280,17 @@ class TwentyFortyEight:
             rand_width = random.randint(0,TwentyFortyEight.get_grid_width(self) - 1)
             rand_index = (rand_height, rand_width)
             return rand_index
-        
+        # Initiate while loop until a tile is added
         # If the value of that index (key in dictionary) is 0,
         # change the value to two.  Call random index first.
         # Uses constant WEIGHTED_NUMB_LIST to ensure correct percentage
-        rand_index_tile = rand_index_select()
-        if self._grid_dict.get(rand_index_tile) == 0:
-            self._grid_dict[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
-            return True
+        while tile_added == False:
+            rand_index_tile = rand_index_select()
+            if self._grid_dict.get(rand_index_tile) == 0:
+                self._grid_dict[rand_index_tile] = random.choice(WEIGHTED_NUMB_LIST)
+                tile_added = True
+        
+        return True
 
     def set_tile(self, row, col, value):
         """
@@ -300,5 +306,5 @@ class TwentyFortyEight:
         return self._grid_dict[(row, col)]
 
 
-poc_2048_gui.run_gui(TwentyFortyEight(4, 5))
+poc_2048_gui.run_gui(TwentyFortyEight(3, 3))
 
