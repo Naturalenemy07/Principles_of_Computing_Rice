@@ -51,13 +51,13 @@ gpa = [4.0, 3.0, 2.0, 1.0]
 
 gpa_breakdown = []
 
-for index in percentage:
+for index in range(0, len(percentage)):
     gpa_breakdown.append(percentage[index] * gpa[index])
 
 mean_gpa = 0
 
 for gpa_index in gpa_breakdown:
-    mean_gpa += gpa_breakdown[gpa_index]
+    mean_gpa += gpa_index
 
 print "Question 6:", mean_gpa
 
@@ -76,4 +76,3 @@ elif p_even > p_odd:
     print "Question 7: expected winnings are negative"
 elif p_even < p_odd:
     print "Question 7: expected winnings are positive"
-
