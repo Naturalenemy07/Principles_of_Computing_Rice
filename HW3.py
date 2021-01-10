@@ -62,7 +62,7 @@ for gpa_index in gpa_breakdown:
 print "Question 6:", mean_gpa
 
 ## Question 7: 
-# even vs odd in 6 sided die
+# even vs odd in 6 sided die, lose if odd, win if even
 num_even = 3
 num_odd = 3
 p_each = 1.0 / 6
