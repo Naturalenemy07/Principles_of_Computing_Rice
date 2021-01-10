@@ -36,10 +36,28 @@ print "Question 3:", itern
     #print random.randrange(6) # no
     #print random.randrange(6) + 1 # yes
     
-## Question 5
+## Question 5, They said rank but the available answers only work if they mean SUIT
 p_first = 4.0/52
 p_second = 3.0/51
 sum_prob = p_first + p_second
 
-print "probability of drawing two same ranked cards:",sum_prob
-    
+print "probability of drawing two same suited cards:",sum_prob
+
+## Question 6: Epected value
+# mean GPA of class if 30% have a 4.0, 40% have a 3.0, 20% have a 2.0, and 10% have a 1.0
+
+percentage = [0.3, 0.4, 0.2, 0.1]
+gpa = [4.0, 3.0, 2.0, 1.0]
+
+gpa_breakdown = []
+
+for index in percentage:
+    gpa_breakdown.append(percentage[index] * gpa[index])
+
+mean_gpa = 0
+
+for gpa_index in gpa_breakdown:
+    mean_gpa += gpa_breakdown[gpa_index]
+
+print mean_gpa
+
