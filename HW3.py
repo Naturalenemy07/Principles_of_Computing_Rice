@@ -43,7 +43,7 @@ sum_prob = p_first + p_second
 
 print "probability of drawing two same suited cards:",sum_prob
 
-## Question 6: Epected value
+## Question 6: Expected value
 # mean GPA of class if 30% have a 4.0, 40% have a 3.0, 20% have a 2.0, and 10% have a 1.0
 
 percentage = [0.3, 0.4, 0.2, 0.1]
@@ -59,5 +59,21 @@ mean_gpa = 0
 for gpa_index in gpa_breakdown:
     mean_gpa += gpa_breakdown[gpa_index]
 
-print mean_gpa
+print "Question 6:", mean_gpa
+
+## Question 7: 
+# even vs odd in 6 sided die
+num_even = 3
+num_odd = 3
+p_each = 1.0 / 6
+
+p_even = num_even * p_each
+p_odd = num_odd * p_each
+
+if p_even == p_odd:
+    print "Question 7: expected winnings are zero, probability of even or odd number is the same"
+elif p_even > p_odd:
+    print "Question 7: expected winnings are negative"
+elif p_even < p_odd:
+    print "Question 7: expected winnings are positive"
 
