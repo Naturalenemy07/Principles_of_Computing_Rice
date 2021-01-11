@@ -76,3 +76,9 @@ elif p_even > p_odd:
     print "Question 7: expected winnings are negative"
 elif p_even < p_odd:
     print "Question 7: expected winnings are positive"
+
+## Question 8: what is the expected value of trial(n) below: assume n is a positive integer - enter as math expression in n:
+
+def trial(n):
+    val = random.randrange(n)
+    return val
