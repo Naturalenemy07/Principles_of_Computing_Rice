@@ -83,4 +83,16 @@ def trial(n):
     val = random.randrange(n)
     return val
 
-#not sure, look up in notes
+# the arithmetric sum from 0 to k has a value of 0.5 * k * (k + 1). 
+# expected value is the sum of the a single outcome * the probability of that outcome.
+# the probability of a single outcome is:
+
+n = 10 # lets do 10 for example
+p_single_outcome = 1.0 / n
+
+# Expected value is the arithmetric sum * probability of individual outcome because of uniform distribution
+a_sum = 0.5 * n * (n + 1)
+exp_value = a_sum / n
+
+## Question 9: Monte Carlo Simulations
+
