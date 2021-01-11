@@ -82,3 +82,5 @@ elif p_even < p_odd:
 def trial(n):
     val = random.randrange(n)
     return val
+
+#not sure, look up in notes
