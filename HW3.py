@@ -130,3 +130,20 @@ print estimate_mystery(10000)
 
 # the return value of estimate_mystery can be thought of as the area of the unit circle / area of the square surrounding unit cicle
 #  or pi() / 4
+
+## Question 10:
+
+import poc_simpletest
+
+def run_suite(format_func):
+    
+    # Create List of items
+    LIST = [0005, 0050, 0061, 0120, 0560, 0600, 1232, 1325, 4567, 5999]
+    result = ["0:00.5", "0:05.0", "0:06.1", "0:12.0", "0:56.0", "1:00.0", "2:03.2", "2:12.5", "7:36.7", "9:59.9"]
+    
+    # Create suite
+    suite = poc_simpletest.TestSuite()
+
+    # Initiate test
+    for i in range(0, len(LIST)):
+        suite.run_test(format_func(LIST[i]), result[i], "Test" + str(i) + ": ")
