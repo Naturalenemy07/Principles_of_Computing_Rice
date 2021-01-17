@@ -15,13 +15,11 @@ SCORE_OTHER = 1.0   # Score for squares played by the other player
     
 # Add your functions here.
 
-# make a board 
-board = {}
 
 def mc_trial(board, player):
-"""
-Takes current board and the next player to move, makes random moves until game is finished
-"""
+    """
+    Takes current board and the next player to move, makes random moves until game is finished
+    """
     pass
 
 def mc_update_scores(scores, board, player):
