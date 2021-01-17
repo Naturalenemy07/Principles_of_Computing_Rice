@@ -11,6 +11,33 @@ def evaluate_position(num_item):
     """
     uses Monte Carlo simulation to compute a good move
     """
+    def iter_play(items_after_init_move):
+        '''
+        plays a single game with random moves for both computer and simulated_player until game is over, true is a win for the computer
+        '''
+        if True:
+            return 1
+        else:
+            return 0
+    
+    '''
+    ....Pseudo code....
+    for each possible moves (max is MAX_REMOVE):
+        score = []
+        dict_of_move_scores = {}
+        num_items -= move
+
+        iteration = 0
+        while iteration < TRIALS:
+            # this passes the num_items after initial move to iter_play and appends 1 if a win or 0 if a loss for computer
+            score.append(iter_play(num_item))
+        
+        # for each possible move, the score is set as a value to the move key example-{1: 0.4, 2: 0.6, 3: 0.2}
+        dict_of_move_scores[move] = win_percentage(score)
+
+        # next the highest value is chosen, that key is then the move that is performed by the computer
+    '''
+
     return 0
 
 def play_game(start_items):
@@ -47,7 +74,6 @@ def win_percentage(score):
     return win_fraction
 
 
-MAX_REMOVE = 3
 def make_dict(maxval):
     dict = {}
     for dummy_i in range(1, maxval + 1):
