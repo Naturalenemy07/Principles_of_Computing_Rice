@@ -36,6 +36,7 @@ def evaluate_position(num_item):
         dict_of_move_scores[move] = win_percentage(score)
 
         # next the highest value is chosen, that key is then the move that is performed by the computer
+        # am making this comment to test my autocrlf configuration change
     '''
 
     return 0
