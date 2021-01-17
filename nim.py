@@ -36,5 +36,24 @@ def play_game(start_items):
 
 
 play_game(12)
-~
+
+### I wrote some functions that will be helpful
+# returns 1 if true, 0 if false
+# in this case, 4/10 win
+score = [1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1]
+
+def win_percentage(score):
+    win_fraction = score.count(1) / float(len(score))
+    return win_fraction
+
+
+MAX_REMOVE = 3
+def make_dict(maxval):
+    dict = {}
+    for dummy_i in range(1, maxval + 1):
+        dict[dummy_i] = 0
+    return dict
+
+win_fraction = make_dict(MAX_REMOVE)
+print "blank win fraction dictionary:", win_fraction
 
