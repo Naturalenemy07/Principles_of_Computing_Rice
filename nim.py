@@ -11,56 +11,64 @@ def evaluate_position(num_item):
     """
     uses Monte Carlo simulation to compute a good move
     """
-    def iter_play(items_after_init_move):
+    def win_percentage(score):
+        """
+        calculates the win percentage of a list score; 1 is win , 0 is loss
+        """
+        win_fraction = score.count(1) / float(len(score))
+        return win_fraction
+    
+    def iter_play(remaining):
         '''
         plays a single game with random moves for both computer and simulated_player until game is over, true is a win for the computer
         '''
-        if True:
-            return 1
-        else:
-            return 0
+        play = 0
     
-    '''
-    ....Pseudo code....
-    for each possible moves (max is MAX_REMOVE):
+        # while loop to play until game is done, switching between players
+        # if play is an even number, then it is the "players" turn, 
+        # if it is odd, it is the computer's turn
+        while remaining > 0:
+            turn = random.randrange(1, MAX_REMOVE + 1)
+            if remaining - turn >= 0:
+                # subtract the turn if a valid move
+                remaining -= turn
+                play += 1
+        if remaining == 0:
+            if play % 2 == 0:
+                return 0
+            else: 
+                return 1
+            print ""
+    
+    # Main logic of the evaluate_position() function
+    # for loop will iterate through each possible initial move
+    # and pass to iter_play for a certain number of trials
+    # it calculates the percentage win and then selects the 
+    # initial move with the highest win percentage
+    # dict_move_scores stores the win percentage for each possible initial move
+    dict_move_scores = {}
+    
+    # store original value
+    original_num_input = num_item
+    
+    for move in range(1, MAX_REMOVE + 1):
         score = []
-        dict_of_move_scores = {}
-        num_items -= move
-
-        iteration = 0
-        while iteration < TRIALS:
-            # this passes the num_items after initial move to iter_play and appends 1 if a win or 0 if a loss for computer
-            score.append(iter_play(num_item))
+        # set num_item to original value for further iterations
+        num_item = original_num_input
+        num_item -= move
         
-        # for each possible move, the score is set as a value to the move key example-{1: 0.4, 2: 0.6, 3: 0.2}
-        dict_of_move_scores[move] = win_percentage(score)
-
-        # next the highest value is chosen, that key is then the move that is performed by the computer
-        # am making this comment to test my autocrlf configuration change
-    '''
-
-    return 0
-
-def iter_play_game(remaining):
-    """
-    plays a game to completion, returns if computer won or lost
-    """
-    # determines which player made move (odd is computer, even is human)
-    play = 0
-
-    # while loop to play until game is done
-    while remaining > 0:
-        turn = random.randrange(1, MAX_REMOVE + 1)
-        if remaining - turn >= 0:
-            # subtract the turn if a valid move
-            remaining -= turn
-            play += 1
-    if remaining == 0:
-        if play % 2 == 0:
-            return 0
-        else:
-            return 1
-
+        iteration = 1
+        while iteration <= TRIALS:
+            # pass the number of items leftover after initial move to iter_play()
+            # The while loop will play the game for a set amount of trials
+            # The wins are 1, losses are 0
+            score.append(iter_play(num_item))
+            iteration += 1
+        dict_move_scores[move] = win_percentage(score)
+        
+    # next the best move need to be chosen by selecting the highest winning move
+    
+    
 def play_game(start_items):
     """
     Play game of Nim against Monte Carlo bot
@@ -83,24 +91,6 @@ def play_game(start_items):
             break
 
 
-play_game(12)
+#play_game(12)
 
-### I wrote some functions that will be helpful
-# returns 1 if true, 0 if false
-# in this case, 4/10 win
-score = [1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1]
-
-def win_percentage(score):
-    win_fraction = score.count(1) / float(len(score))
-    return win_fraction
-
-
-def make_dict(maxval):
-    dict = {}
-    for dummy_i in range(1, maxval + 1):
-        dict[dummy_i] = 0
-    return dict
-
-win_fraction = make_dict(MAX_REMOVE)
-print "blank win fraction dictionary:", win_fraction
-
+evaluate_position(21)
