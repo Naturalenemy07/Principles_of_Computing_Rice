@@ -35,9 +35,9 @@ def evaluate_position(num_item):
                 play += 1
         if remaining == 0:
             if play % 2 == 0:
-                return 0
-            else: 
                 return 1
+            else: 
+                return 0
             print ""
     
     # Main logic of the evaluate_position() function
@@ -67,7 +67,10 @@ def evaluate_position(num_item):
         dict_move_scores[move] = win_percentage(score)
         
     # next the best move need to be chosen by selecting the highest winning move
-    
+    max_value = max(dict_move_scores.values())
+    max_pos = dict_move_scores.values().index(max_value)
+    best_move = dict_move_scores.keys()[max_pos]    
+    return best_move
     
 def play_game(start_items):
     """
@@ -90,7 +93,4 @@ def play_game(start_items):
             print "Player wins"
             break
 
-
-#play_game(12)
-
-evaluate_position(21)
+play_game(21)
