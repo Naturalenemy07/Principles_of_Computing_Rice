@@ -41,6 +41,26 @@ def evaluate_position(num_item):
 
     return 0
 
+def iter_play_game(remaining):
+    """
+    plays a game to completion, returns if computer won or lost
+    """
+    # determines which player made move (odd is computer, even is human)
+    play = 0
+
+    # while loop to play until game is done
+    while remaining > 0:
+        turn = random.randrange(1, MAX_REMOVE + 1)
+        if remaining - turn >= 0:
+            # subtract the turn if a valid move
+            remaining -= turn
+            play += 1
+    if remaining == 0:
+        if play % 2 == 0:
+            return 0
+        else:
+            return 1
+
 def play_game(start_items):
     """
     Play game of Nim against Monte Carlo bot
