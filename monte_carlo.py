@@ -14,7 +14,9 @@ SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0   # Score for squares played by the other player
     
 # Add your functions here.
+# This will print the board in the console line using the provided TTTBoard class as provided
 
+print provided.TTTBoard(3, reverse = False)
 
 def mc_trial(board, player):
     """
