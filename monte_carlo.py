@@ -60,6 +60,9 @@ def mc_move(board, player, trials):
     Uses monte carlo simulation to return move for machine player as a tuple
     """
 
+# test the mc_trial function
+board = provided.TTTBoard(3)
+mc_trial(board, provided.PLAYERX)
 
 
 # Test game with the console or the GUI.  Uncomment whichever 
