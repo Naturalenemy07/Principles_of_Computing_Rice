@@ -14,15 +14,32 @@ SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0   # Score for squares played by the other player
     
 # Add your functions here.
-# This will print the board in the console line using the provided TTTBoard class as provided
-
-print provided.TTTBoard(3, reverse = False)
+# This will print the board in the console line using the provided TTTBoard class as providedpass
 
 def mc_trial(board, player):
     """
     Takes current board and the next player to move, makes random moves until game is finished
     """
-    pass
+    #get dimensions of the board
+    dim = board.get_dim()
+
+    # randomly selects a row and column index and places the playerX or playerO in that
+    # square if that square is empty, it does this until the board is full
+    # returns a clone of the board
+
+    # while board contains empty squares
+    while len(board.get_empty_squares()) > 0:
+        # set index for row and column within dimensions of board
+        row = random.randrange(0, dim)
+        col = random.randrange(0, dim)
+        # if the (row, col) index is an empty square, set current player move at that square
+        if (row, col) in board.get_empty_squares():
+            board.move(row, col, player)
+            # sets the next player
+            player = provided.switch_player(player)
+            # prints the board after each move
+            print board
+        
 
 def mc_update_scores(scores, board, player):
     """
