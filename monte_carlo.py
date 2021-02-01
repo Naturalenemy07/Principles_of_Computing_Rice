@@ -27,8 +27,8 @@ def mc_trial(board, player):
     # square if that square is empty, it does this until the board is full
     # returns a clone of the board
 
-    # while board contains empty squares
-    while len(board.get_empty_squares()) > 0:
+    # while board has no winner
+    while board.check_win() is None:
         # set index for row and column within dimensions of board
         row = random.randrange(0, dim)
         col = random.randrange(0, dim)
@@ -39,6 +39,7 @@ def mc_trial(board, player):
             player = provided.switch_player(player)
             # prints the board after each move
             print board
+    return
         
 
 def mc_update_scores(scores, board, player):
