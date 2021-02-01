@@ -54,6 +54,11 @@ def get_best_move(board, scores):
     takes the current board(must contain empty squares) and the grid of scores,
     finds maximum score and returns the one of them randomly
     """
+    if len(board.get_empty_squares) == 0:
+        print "Error: There are no more moves."
+        return
+    else:
+        pass
 
 def mc_move(board, player, trials):
     """
