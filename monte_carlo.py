@@ -65,6 +65,23 @@ def mc_move(board, player, trials):
     takes the current board, which player machine is, and number of trials to run.
     Uses monte carlo simulation to return move for machine player as a tuple
     """
+    # monte carlo
+    for dummy_trial in range(0, trials):
+        # start with scores of all 0, build grid with nest forloop
+    	score_grid = []
+    	dim = board.get_dim()
+    	for x_int in range(0, dim):
+        	x_grid = []
+        	for y_int in range(0, dim):
+            	x_grid.append(0)
+        	score_grid.append(x_grid)
+    	print score_grid
+        
+        # play a random game until completion
+        mc_trial(board, player)
+        # passes this board to be scored
+        mc_update_scores(score_grid, board, player)
+
 
 # test the mc_trial function
 board = provided.TTTBoard(3)
