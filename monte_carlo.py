@@ -18,6 +18,7 @@ SCORE_OTHER = 1.0   # Score for squares played by the other player
 def empty_scores(board):
     """
     Builds a board of scores with matching dimensions for board in play
+    Returns an empty board
     """
     # Get dimensions of the board
     dim = board.get_dim()
@@ -33,19 +34,25 @@ def empty_scores(board):
     for dummy_row in range(dim):
         scores.append(row)
         
-    print scores
+    return scores
 
 def mc_trial(board, player):
     """
     Takes current board and the next player to move, makes random moves until game is finished
     """
-    #get dimensions of the board
+    # include timer to keep track of how many games have been played for monte carlo and for board version
+    counter = 0
+    # get dimensions of the board
     dim = board.get_dim()
+    
+    # make a score board of all zeros
+    scores = empty_scores(board)
+    print scores
 
     # randomly selects a row and column index and places the playerX or playerO in that
     # square if that square is empty, it does this until there is a winner
     # prints the board for testing purposes, returns nothing
-
+    
     # while board has no winner
     while board.check_win() is None:
         # set index for row and column within dimensions of board
@@ -58,6 +65,21 @@ def mc_trial(board, player):
             player = provided.switch_player(player)
             # prints the board after each move
             print board
+
+    # score the completed game, set to a new running total, set to empty if first round 
+    if counter is 0:
+        scores_total = scores
+    scores_total = mc_update_scores(scores_total, board, player)
+
+    # test scoring algorithm after a completed game
+    print scores_total
+    counter += 1
+        
+    # get the best move
+    #get_best_move(board, scores_total)
+    
+    # make move
+    #mc_move(board, player, NTRIALS)
     return 
         
 
@@ -66,7 +88,7 @@ def mc_update_scores(scores, board, player):
     takes a grid of scores, board of a completed game, and which player the machine is, 
     it scores the completed board and update scores grid
     """
-    pass
+    return "poop"
 
 def get_best_move(board, scores):
     """
