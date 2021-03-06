@@ -15,6 +15,25 @@ SCORE_OTHER = 1.0   # Score for squares played by the other player
     
 # Add your functions here.
 # This will print the board in the console line using the provided TTTBoard class as providedpass
+def empty_scores(board):
+    """
+    Builds a board of scores with matching dimensions for board in play
+    """
+    # Get dimensions of the board
+    dim = board.get_dim()
+    
+    # Set row to empty list, set scores to another empty list
+    row = []
+    scores = []
+    
+    # Build the row of zero scores, add these rows to the scores list
+    for dummy_row_index in range(dim):
+        row.append(0)
+    
+    for dummy_row in range(dim):
+        scores.append(row)
+        
+    print scores
 
 def mc_trial(board, player):
     """
@@ -24,8 +43,8 @@ def mc_trial(board, player):
     dim = board.get_dim()
 
     # randomly selects a row and column index and places the playerX or playerO in that
-    # square if that square is empty, it does this until the board is full
-    # returns a clone of the board
+    # square if that square is empty, it does this until there is a winner
+    # prints the board for testing purposes, returns nothing
 
     # while board has no winner
     while board.check_win() is None:
@@ -39,7 +58,7 @@ def mc_trial(board, player):
             player = provided.switch_player(player)
             # prints the board after each move
             print board
-    return
+    return 
         
 
 def mc_update_scores(scores, board, player):
@@ -57,9 +76,8 @@ def get_best_move(board, scores):
     if len(board.get_empty_squares) == 0:
         print "Error: There are no more moves."
         return
-    else:
-        pass
-
+    
+    
 def mc_move(board, player, trials):
     """
     takes the current board, which player machine is, and number of trials to run.
@@ -68,23 +86,24 @@ def mc_move(board, player, trials):
     # monte carlo
     for dummy_trial in range(0, trials):
         # start with scores of all 0, build grid with nest forloop
-    	score_grid = []
-    	dim = board.get_dim()
-    	for x_int in range(0, dim):
-        	x_grid = []
-        	for y_int in range(0, dim):
-            	x_grid.append(0)
-        	score_grid.append(x_grid)
-    	print score_grid
+        score_grid = []
+        dim = board.get_dim()
+        for x_int in range(0, dim):
+            x_grid = []
+            for y_int in range(0, dim):
+                x_grid.append(0)
+            score_grid.append(x_grid)
+        print score_grid
         
         # play a random game until completion
         mc_trial(board, player)
         # passes this board to be scored
         mc_update_scores(score_grid, board, player)
-
+       
 
 # test the mc_trial function
 board = provided.TTTBoard(3)
+# empty_scores(board) # test building scores board
 mc_trial(board, provided.PLAYERX)
 
 
@@ -94,3 +113,4 @@ mc_trial(board, provided.PLAYERX)
 
 # provided.play_game(mc_move, NTRIALS, False)        
 # poc_ttt_gui.run_gui(3, provided.PLAYERX, mc_move, NTRIALS, False)
+
