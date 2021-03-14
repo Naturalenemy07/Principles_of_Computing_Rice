@@ -49,14 +49,18 @@ def mc_trial(board, player):
     
     # while board has no winner
     while board.check_win() is None:
+        
         # set index for row and column within dimensions of board
         row = random.randrange(0, dim)
         col = random.randrange(0, dim)
+        
         # if the (row, col) index is an empty square, set current player move at that square
         if (row, col) in board.get_empty_squares():
             board.move(row, col, player)
+            
             # sets the next player
             player = provided.switch_player(player)
+            
             # prints the board after each move
             print board
             
@@ -84,57 +88,40 @@ def mc_move(board, player, trials):
     """
     takes the current board, which player machine is, and number of trials to run.
     Uses monte carlo simulation to return move for machine player as a tuple
-    """
-    # monte carlo
+    """    
+    # monte carlo method
     for dummy_trial in range(0, trials):
-        # start with scores of all 0, build grid with nest forloop
-        score_grid = []
-        dim = board.get_dim()
-        for x_int in range(0, dim):
-            x_grid = []
-            for y_int in range(0, dim):
-                x_grid.append(0)
-            score_grid.append(x_grid)
-        print score_grid
+        
+        # started with a score of all zeros
+        scores_grid = empty_scores(board)
         
         # play a random game until completion
         mc_trial(board, player)
-        # passes this board to be scored
-        mc_update_scores(score_grid, board, player)
         
-    # include timer to keep track of how many games have been played for monte carlo and for board version
-    counter = 0
-    
-    # make a score board of all zeros
-    scores = empty_scores(board)
-    print scores
-    
-    # score the completed game, set to a new running total, set to empty if first round 
-    if counter is 0:
-        scores_total = scores
-    scores_total = mc_update_scores(scores_total, board, player)
+        # score the completed game, set to a new running total, set to empty if first round 
+        if dummy_trial is 0:
+            scores_total = scores_grid
+            scores_total = mc_update_scores(scores_total, board, player)
+        else:
+            scores_total = mc_update_scores(scores_total, board, player)
 
     # test scoring algorithm after a completed game
     print scores_total
-    counter += 1
         
     # get the best move
     #get_best_move(board, scores_total)
-    
-    # make move
-    #mc_move(board, player, NTRIALS)
        
 
 # test the mc_trial function
 board = provided.TTTBoard(3)
 # empty_scores(board) # test building scores board
-mc_trial(board, provided.PLAYERX)
+# mc_trial(board, provided.PLAYERX)
 
 
 # Test game with the console or the GUI.  Uncomment whichever 
 # you prefer.  Both should be commented out when you submit 
 # for testing to save time.
 
-# provided.play_game(mc_move, NTRIALS, False)        
+provided.play_game(mc_move, NTRIALS, False)        
 # poc_ttt_gui.run_gui(3, provided.PLAYERX, mc_move, NTRIALS, False)
 
