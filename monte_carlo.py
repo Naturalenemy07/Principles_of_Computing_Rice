@@ -40,18 +40,12 @@ def mc_trial(board, player):
     """
     Takes current board and the next player to move, makes random moves until game is finished
     """
-    # include timer to keep track of how many games have been played for monte carlo and for board version
-    counter = 0
-    # get dimensions of the board
-    dim = board.get_dim()
-    
-    # make a score board of all zeros
-    scores = empty_scores(board)
-    print scores
-
     # randomly selects a row and column index and places the playerX or playerO in that
     # square if that square is empty, it does this until there is a winner
     # prints the board for testing purposes, returns nothing
+    
+    # get dimensions of the board
+    dim = board.get_dim()
     
     # while board has no winner
     while board.check_win() is None:
@@ -65,21 +59,7 @@ def mc_trial(board, player):
             player = provided.switch_player(player)
             # prints the board after each move
             print board
-
-    # score the completed game, set to a new running total, set to empty if first round 
-    if counter is 0:
-        scores_total = scores
-    scores_total = mc_update_scores(scores_total, board, player)
-
-    # test scoring algorithm after a completed game
-    print scores_total
-    counter += 1
-        
-    # get the best move
-    #get_best_move(board, scores_total)
-    
-    # make move
-    #mc_move(board, player, NTRIALS)
+            
     return 
         
 
@@ -121,6 +101,28 @@ def mc_move(board, player, trials):
         mc_trial(board, player)
         # passes this board to be scored
         mc_update_scores(score_grid, board, player)
+        
+    # include timer to keep track of how many games have been played for monte carlo and for board version
+    counter = 0
+    
+    # make a score board of all zeros
+    scores = empty_scores(board)
+    print scores
+    
+    # score the completed game, set to a new running total, set to empty if first round 
+    if counter is 0:
+        scores_total = scores
+    scores_total = mc_update_scores(scores_total, board, player)
+
+    # test scoring algorithm after a completed game
+    print scores_total
+    counter += 1
+        
+    # get the best move
+    #get_best_move(board, scores_total)
+    
+    # make move
+    #mc_move(board, player, NTRIALS)
        
 
 # test the mc_trial function
