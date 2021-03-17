@@ -9,7 +9,7 @@ import poc_ttt_provided as provided
 # Constants for Monte Carlo simulator
 # You may change the values of these constants as desired, but
 #  do not change their names.
-NTRIALS = 1         # Number of trials to run
+NTRIALS = 3         # Number of trials to run
 SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0 # Score for squares played by the other player
 NONE = 1 # value of square if not "X" or "O"
@@ -24,7 +24,7 @@ def empty_scores(board):
     """
     # Get dimensions of the board
     dim = board.get_dim()
-    print "dimension",dim
+
     # Set scores to empty list, will hold all other lists
     scores = []
     
@@ -63,9 +63,9 @@ def mc_trial(board, player):
             player = provided.switch_player(player)
             
             # prints the board after each move
-            print board
+    print board
             
-    return 
+    return board
         
 
 def mc_update_scores(scores, board, player):
@@ -96,7 +96,7 @@ def mc_update_scores(scores, board, player):
                 else:
                     scores[lis][element] -= SCORE_OTHER                    
     
-    # if winner is not the player, minus for player, add for other, zero for blank
+    # if winner is not the player
     elif winner is not player:
         for lis in range(dim):
             for element in range(dim):
@@ -116,9 +116,12 @@ def get_best_move(board, scores):
     takes the current board(must contain empty squares) and the grid of scores,
     finds maximum score and returns the one of them randomly
     """
-    if len(board.get_empty_squares) == 0:
+    if len(board.get_empty_squares()) == 0:
         print "Error: There are no more moves."
-        pass
+        return
+    else:
+        # returns something
+        return (0,1)
     
     
 def mc_move(board, player, trials):
@@ -132,21 +135,21 @@ def mc_move(board, player, trials):
     # monte carlo method
     for dummy_trial in range(0, trials):
         
-        # play a random game until completion
-        mc_trial(board, player)
+        # play a random game until completion, set to test board
+        print "prior to trial",board
+        test_board = mc_trial(board, player)
         
         # score the completed game, set to a new running total, set to empty if first round 
-        print "trial", dummy_trial
         if dummy_trial is 0:
-            scores_total = mc_update_scores(empty_scores(board), board, player)
+            scores_total = mc_update_scores(empty_scores(test_board), test_board, player)
         elif dummy_trial > 0:
-            scores_total = mc_update_scores(scores_total, board, player)
+            scores_total = mc_update_scores(scores_total, test_board, player)
                     
         # test scoring algorithm after a completed game
         print scores_total
         
-    # get the best move score
-    get_best_move(board, scores_total)
+    # get the best move score, returns a tuple
+    return get_best_move(board, scores_total)
        
 
 # test the mc_trial function
