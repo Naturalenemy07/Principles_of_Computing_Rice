@@ -146,7 +146,7 @@ def mc_move(board, player, trials):
         print scores_total
         
     # get the best move score
-    # get_best_move(board, scores_total)
+    get_best_move(board, scores_total)
        
 
 # test the mc_trial function
