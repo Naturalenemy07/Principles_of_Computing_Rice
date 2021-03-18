@@ -118,23 +118,31 @@ def get_best_move(board, scores):
         # returns tuple of the highest score, random if tie
         empty_squares = board.get_empty_squares()   
         
-        # create an list of all empty indexes on board
-        index_list = []
-        for index in range(len(empty_squares)):
-            index_list.append((empty_squares[index][0],empty_squares[index][1]))
-        
-        # create a list of all scores
+        # create a list of all scores and list of empty positions
         empty_scores_list = []
         highest_score = 0
-        print scores
         for list_item in range(len(scores)):
             for ele_item in range(len(scores)):
                 score_tuple = (list_item, ele_item)
                 if score_tuple in empty_squares:
                     empty_scores_list.append(scores[list_item][ele_item])
-        print empty_squares
-        print empty_scores_list
         
+        # build a dictionary with both location as key
+        # and the score as value
+        score_pos_dict = {}
+        i = 0
+        for score in empty_scores_list:
+            score_pos_dict[score] = empty_squares[i]
+            i += 1
+    
+        # get the highest score
+        score_values = score_pos_dict.keys()
+        score_values.sort(reverse = True)
+        highest_score = score_values[0]
+        
+        # get the location of the highest value, returns key
+        highest_score_index = score_pos_dict[highest_score]
+        return highest_score_index
     
     
 def mc_move(board, player, trials):
@@ -161,7 +169,6 @@ def mc_move(board, player, trials):
     # get the best move score, returns a tuple
     x = get_best_move(board, scores_total)
     print x
-    print type(x)
        
 
 # test the mc_trial function
