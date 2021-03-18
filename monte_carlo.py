@@ -9,11 +9,9 @@ import poc_ttt_provided as provided
 # Constants for Monte Carlo simulator
 # You may change the values of these constants as desired, but
 #  do not change their names.
-NTRIALS = 3         # Number of trials to run
+NTRIALS = 200         # Number of trials to run
 SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0 # Score for squares played by the other player
-NONE = 1 # value of square if not "X" or "O"
-TIED = 4 # game status if game is tied
     
 # Add your functions here.
 # This will print the board in the console line using the provided TTTBoard class as providedpass
@@ -37,7 +35,7 @@ def empty_scores(board):
         
     return scores
 
-def mc_trial(board, player):
+def mc_trial(test_board, player):
     """
     Takes current board and the next player to move, makes random moves until game is finished
     """
@@ -46,41 +44,39 @@ def mc_trial(board, player):
     # prints the board for testing purposes, returns nothing
     
     # get dimensions of the board
-    dim = board.get_dim()
+    dim = test_board.get_dim()
     
     # while board has no winner
-    while board.check_win() is None:
+    while test_board.check_win() is None:
         
         # set index for row and column within dimensions of board
         row = random.randrange(0, dim)
         col = random.randrange(0, dim)
         
         # if the (row, col) index is an empty square, set current player move at that square
-        if (row, col) in board.get_empty_squares():
-            board.move(row, col, player)
+        if (row, col) in test_board.get_empty_squares():
+            test_board.move(row, col, player)
             
             # sets the next player
             player = provided.switch_player(player)
             
-            # prints the board after each move
-    print board
-            
-    return board
+    # prints the board for testing purposes            
+    return test_board
         
 
-def mc_update_scores(scores, board, player):
+def mc_update_scores(scores, test_board, player):
     """
     takes a grid of scores, board of a completed game, and which player the machine is, 
     it scores the completed board and update scores grid
     """
     # get dimensions of the board
-    dim = board.get_dim()
+    dim = test_board.get_dim()
     
     # sets winner to a variable using check_win(), 2 is "X", 3 is "O", 4 is "draw"
-    winner = board.check_win()
+    winner = test_board.check_win()
     
     # if tied
-    if winner is TIED:
+    if winner is provided.DRAW:
         for i in range(dim):
             for j in range(dim):
                 scores[i][j] = scores[i][j] + 0
@@ -89,9 +85,9 @@ def mc_update_scores(scores, board, player):
     elif winner is player:
         for lis in range(dim):
             for element in range(dim):
-                if board.square(lis, element) is NONE:
+                if test_board.square(lis, element) is provided.EMPTY:
                     scores[lis][element] = scores[lis][element] + 0
-                elif board.square(lis, element) is player:                    
+                elif test_board.square(lis, element) is player:                    
                     scores[lis][element] += SCORE_CURRENT
                 else:
                     scores[lis][element] -= SCORE_OTHER                    
@@ -100,13 +96,12 @@ def mc_update_scores(scores, board, player):
     elif winner is not player:
         for lis in range(dim):
             for element in range(dim):
-                if board.square(lis, element) is NONE:
+                if test_board.square(lis, element) is provided.EMPTY:
                     scores[lis][element] = scores[lis][element] + 0
-                elif board.square(lis, element) is player:                    
+                elif test_board.square(lis, element) is player:                    
                     scores[lis][element] -= SCORE_CURRENT
                 else:
                     scores[lis][element] += SCORE_OTHER 
-    
     return scores
     
             
@@ -121,7 +116,7 @@ def get_best_move(board, scores):
         return
     else:
         # returns something
-        return (0,1)
+        pass
     
     
 def mc_move(board, player, trials):
@@ -136,16 +131,16 @@ def mc_move(board, player, trials):
     for dummy_trial in range(0, trials):
         
         # play a random game until completion, set to test board
-        print "prior to trial",board
-        test_board = mc_trial(board, player)
+        test_board = board.clone()
+        mc_trial(test_board, player)
         
         # score the completed game, set to a new running total, set to empty if first round 
         if dummy_trial is 0:
-            scores_total = mc_update_scores(empty_scores(test_board), test_board, player)
+            scores_total = mc_update_scores(empty_scores(board), test_board, player)
         elif dummy_trial > 0:
             scores_total = mc_update_scores(scores_total, test_board, player)
                     
-        # test scoring algorithm after a completed game
+        # test scoring algorithm after all completed games
         print scores_total
         
     # get the best move score, returns a tuple
@@ -153,7 +148,7 @@ def mc_move(board, player, trials):
        
 
 # test the mc_trial function
-# board = provided.TTTBoard(3)
+board = provided.TTTBoard(3)
 # empty_scores(board) # test building scores board
 ##mc_trial(board, provided.PLAYERX)
 
