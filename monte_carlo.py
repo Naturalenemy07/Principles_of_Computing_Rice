@@ -115,8 +115,26 @@ def get_best_move(board, scores):
         print "Error: There are no more moves."
         return
     else:
-        # returns something
-        pass
+        # returns tuple of the highest score, random if tie
+        empty_squares = board.get_empty_squares()   
+        
+        # create an list of all empty indexes on board
+        index_list = []
+        for index in range(len(empty_squares)):
+            index_list.append((empty_squares[index][0],empty_squares[index][1]))
+        
+        # create a list of all scores
+        empty_scores_list = []
+        highest_score = 0
+        print scores
+        for list_item in range(len(scores)):
+            for ele_item in range(len(scores)):
+                score_tuple = (list_item, ele_item)
+                if score_tuple in empty_squares:
+                    empty_scores_list.append(scores[list_item][ele_item])
+        print empty_squares
+        print empty_scores_list
+        
     
     
 def mc_move(board, player, trials):
@@ -139,16 +157,15 @@ def mc_move(board, player, trials):
             scores_total = mc_update_scores(empty_scores(board), test_board, player)
         elif dummy_trial > 0:
             scores_total = mc_update_scores(scores_total, test_board, player)
-                    
-        # test scoring algorithm after all completed games
-        print scores_total
-        
+    
     # get the best move score, returns a tuple
-    return get_best_move(board, scores_total)
+    x = get_best_move(board, scores_total)
+    print x
+    print type(x)
        
 
 # test the mc_trial function
-board = provided.TTTBoard(3)
+##board = provided.TTTBoard(3)
 # empty_scores(board) # test building scores board
 ##mc_trial(board, provided.PLAYERX)
 
