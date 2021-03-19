@@ -27,9 +27,9 @@ def empty_scores(board):
     scores = []
     
     # Build the row of zero scores, add these rows to the scores list
-    for i in range(dim):
+    for dummy_i in range(dim):
         row = []
-        for j in range(dim):
+        for dummy_j in range(dim):
             row.append(0)
         scores.append(row)
         
@@ -77,11 +77,9 @@ def mc_update_scores(scores, test_board, player):
     
     # if tied
     if winner is provided.DRAW:
-        for i in range(dim):
-            for j in range(dim):
-                scores[i][j] = scores[i][j] + 0
-    
-    # if winner is player, add point for player, minus for other, zero for blank
+        for dummy_i in range(dim):
+            for dummy_j in range(dim):
+                scores[dummy_i][dummy_j] = scores[dummy_i][dummy_j] + 0
     elif winner is player:
         for lis in range(dim):
             for element in range(dim):
@@ -91,8 +89,6 @@ def mc_update_scores(scores, test_board, player):
                     scores[lis][element] += SCORE_CURRENT
                 else:
                     scores[lis][element] -= SCORE_OTHER                    
-    
-    # if winner is not the player
     elif winner is not player:
         for lis in range(dim):
             for element in range(dim):
@@ -101,7 +97,8 @@ def mc_update_scores(scores, test_board, player):
                 elif test_board.square(lis, element) is player:                    
                     scores[lis][element] -= SCORE_CURRENT
                 else:
-                    scores[lis][element] += SCORE_OTHER 
+                    scores[lis][element] += SCORE_OTHER
+                    
     return scores
     
             
@@ -130,10 +127,10 @@ def get_best_move(board, scores):
         # build a dictionary with both location as key
         # and the score as value
         score_pos_dict = {}
-        i = 0
+        counter = 0
         for score in empty_scores_list:
-            score_pos_dict[score] = empty_squares[i]
-            i += 1
+            score_pos_dict[score] = empty_squares[counter]
+            counter += 1
     
         # get the highest score
         score_values = score_pos_dict.keys()
@@ -150,9 +147,6 @@ def mc_move(board, player, trials):
     takes the current board, which player machine is, and number of trials to run.
     Uses monte carlo simulation to return move for machine player as a tuple
     """    
-    # get dimensions
-    dim = board.get_dim()
-    
     # monte carlo method
     for dummy_trial in range(0, trials):
         
@@ -167,8 +161,7 @@ def mc_move(board, player, trials):
             scores_total = mc_update_scores(scores_total, test_board, player)
     
     # get the best move score, returns a tuple
-    x = get_best_move(board, scores_total)
-    print x
+    return get_best_move(board, scores_total)
        
 
 # test the mc_trial function
