@@ -19,9 +19,12 @@ import math
 
 def make_enum(choices, length):
     set = []
-    setset = []
-    for ind in range(choices):
-        
+    setofsets = []
+    for indone in range(1, choices + 1):
+        for indtwo in range(1, choices + 1):
+            set = [indone, indtwo]
+            setofsets.append(set)
+    return setofsets    
 
 # set constants
 die_sides = 4
@@ -29,9 +32,9 @@ rolls = 2
 
 # first make the list of all possible enumerations
 total_enum = die_sides ** rolls
-poss_enum = []
 
-make_enum(die_sides, rolls)
+poss_enum = make_enum(die_sides, rolls)
+print(poss_enum)
 
 # next get the product of all enumerations
 # lastly take the average of all the enumerations
