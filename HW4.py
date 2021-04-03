@@ -1,6 +1,22 @@
 import math
 
 # Homework 4
+def make_enum(outcomes, length):
+    """
+    Iterative function that enumerates the set of all sequences of
+    outcomes of given length
+    """
+    # I still dont understand this function
+    ans = set([()])
+    for dummy_idx in range(length):
+        temp = set()
+        for seq in ans:
+            for item in outcomes:
+                new_seq = list(seq)
+                new_seq.append(item)
+                temp.add(tuple(new_seq))
+        ans = temp
+    return ans
 
 # Question 1
 def q1():
@@ -24,25 +40,6 @@ def q2():
     Consider a sequence of trials in which a fair four-sided die (with faces numbered 1-4) is rolled twice.  
     What is the expected value of the product of the two die rolls? Enter the answer as a floating point number below.
     """
-    
-    def make_enum(outcomes, length):
-        """
-        Iterative function that enumerates the set of all sequences of
-        outcomes of given length
-        """
-        # I still dont understand this function
-        ans = set([()])
-        for dummy_idx in range(length):
-            temp = set()
-            for seq in ans:
-                for item in outcomes:
-                    new_seq = list(seq)
-                    new_seq.append(item)
-                    temp.add(tuple(new_seq))
-            ans = temp
-        return ans
-
-
     def prod_lists_avg(list_list):
         """
         input::list_list: a iterable containing a set/list/tuple of enumerations
@@ -80,7 +77,26 @@ def q3():
     string created by a sequence of such trials(0s and repeated digits allowed). What is the probability that this
     5-string digit consists of five consecutive digits in ascending or descending order? 
     """
-    print("Question 3: ")
+    # first compute the number of enumerations that match the required setting
+    select_list = [0,1,2,3,4,5,6,7,8,9]
+    
+    counter = 0
+    LENGTH = 4
+    matched_enum = 1
+    
+    for i in range(len(select_list)):
+        if i+LENGTH in select_list:
+            counter += 1
+
+    # because counter starts at zero we add 1 to it, and then multiply by 2 for acsending and descending
+    consecutive_strings = (counter) * 2
+    
+    total_enum = make_enum(select_list, LENGTH + 1)
+    prob_consec_string = float(consecutive_strings) / len(total_enum)
+
+    print("Question 3: {}".format(prob_consec_string))
+    
 q1()
 q2()
 q3()
+
