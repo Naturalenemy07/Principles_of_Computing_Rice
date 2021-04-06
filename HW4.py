@@ -128,11 +128,52 @@ def q4():
     prob_consec_string = float(consecutive_strings) / len(total_perm)
     
     print("Question 4: {}".format(prob_consec_string))
+    
+def q5():
+    """
+    Write your own get all enumerations and permutations algorithm
+    """
+    """
+    Function to generate permutations of outcomes
+    Repetition of outcomes not allowed
+    """
 
-q1()
-q2()
-q3()
-q4()
+    def gen_permutations(outcomes, length):
+        """
+        Iterative function that generates set of permutations of
+        outcomes of length num_trials
+        No repeated outcomes allowed
+        """
+        enumerations = set([()])
+
+        for dummy_idx in range(length):
+            temp = set()
+            for seq in enumerations:
+                for item in outcomes:
+                    new_seq = list(seq)
+                    new_seq.append(item)
+                    temp.add(tuple(new_seq))
+            enumerations = temp
+        
+        permutations = []
+        for enum in enumerations:
+            if len(set(enum)) == len(enum):
+                permutations.append(enum)
+        return permutations
+
+    outcome = set(["a", "b", "c", "d", "e", "f"])
+    
+    permutations = gen_permutations(outcome, 4)
+    permutation_list = list(permutations)
+    permutation_list.sort()
+    print("Question 5: {}".format(permutation_list[100]))
+
+
+#q1()
+#q2()
+#q3()
+#q4()
+q5()
     
 
 
