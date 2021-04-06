@@ -18,6 +18,17 @@ def make_enum(outcomes, length):
         ans = temp
     return ans
 
+def make_perm(outcomes, length):
+    """
+    
+    """
+    enumerations = make_enum(outcomes, length)
+    permutations = []
+    for enum in enumerations:
+        if len(set(enum)) == len(enum):
+            permutations.append(enum)
+    return permutations
+
 # Question 1
 def q1():
     """
@@ -96,7 +107,32 @@ def q3():
 
     print("Question 3: {}".format(prob_consec_string))
     
+def q4():
+    """
+    Same as Question 3 but it is a permutation of digits instead of a combination (no repeated digits)
+    """
+    select_list = [0,1,2,3,4,5,6,7,8,9]
+    
+    counter = 0
+    LENGTH = 4
+    matched_enum = 1
+    
+    for i in range(len(select_list)):
+        if i+LENGTH in select_list:
+            counter += 1
+
+    # Multiply by 2 for acsending and descending
+    consecutive_strings = (counter) * 2
+    
+    total_perm = make_perm(select_list, LENGTH + 1)
+    prob_consec_string = float(consecutive_strings) / len(total_perm)
+    
+    print("Question 4: {}".format(prob_consec_string))
+
 q1()
 q2()
 q3()
+q4()
+    
+
 
