@@ -168,12 +168,28 @@ def q5():
     permutation_list.sort()
     print("Question 5: {}".format(permutation_list[100]))
 
+def q6():
+    pass
 
+def q7():
+    """
+    How many distinct subsets are in a set of length n, this is not correct
+    """
+    test_set = [1, 2, 7, 6]
+    
+    total_sets = 0
+    for index_length in range(1, len(test_set) + 1):
+        total_sets += len(set(make_perm(test_set, index_length)))
+    print("total sets: {}".format(total_sets))
+    
 #q1()
 #q2()
 #q3()
 #q4()
-q5()
+#q5()
+#q6()
+q7()
     
+
 
 
