@@ -16,6 +16,15 @@ def make_enum(outcomes, length):
                 new_seq.append(item)
                 temp.add(tuple(new_seq))
         ans = temp
+    print(ans)
+    
+def make_tup_list(tuple_list):
+    # I want to return a list instead of a tuple so I can manipulate it
+    for i in tuple_list:
+        print(i)
+        for j in i:
+            print(j)
+            
     return ans
 
 def make_perm(outcomes, length):
@@ -180,15 +189,15 @@ def q7():
     total_sets = []
     for index_length in range(1, len(test_set) + 1):
         total_sets.append(set(make_perm(test_set, index_length)))
-    print(total_sets)
+#    print(total_sets)
     # sort, then append to new set
-    sorte = []
-    for ls in total_sets:
-        for iter in ls:
-            sorte.append(list(iter).sort())
-    print(sorte)
-    sorted_set = set(sorte)
-    print(sorted_set)
+#    sorte = []
+#    for ls in total_sets:
+#        for iter in ls:
+#            sorte.append(list(iter).sort())
+#    print(sorte)
+#    sorted_set = set(sorte)
+#    print(sorted_set)
     
 #q1()
 #q2()
@@ -198,6 +207,5 @@ def q7():
 #q6()
 q7()
     
-
 
 
