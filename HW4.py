@@ -173,14 +173,22 @@ def q6():
 
 def q7():
     """
-    How many distinct subsets are in a set of length n, this is not correct
+    How many distinct subsets are in a set of length n, order isn't important...meaning (1,5) = (5,1)
     """
-    test_set = [1, 2, 7, 6]
+    test_set = [1, 2, 7]
     
-    total_sets = 0
+    total_sets = []
     for index_length in range(1, len(test_set) + 1):
-        total_sets += len(set(make_perm(test_set, index_length)))
-    print("total sets: {}".format(total_sets))
+        total_sets.append(set(make_perm(test_set, index_length)))
+    print(total_sets)
+    # sort, then append to new set
+    sorte = []
+    for ls in total_sets:
+        for iter in ls:
+            sorte.append(list(iter).sort())
+    print(sorte)
+    sorted_set = set(sorte)
+    print(sorted_set)
     
 #q1()
 #q2()
