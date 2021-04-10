@@ -16,15 +16,6 @@ def make_enum(outcomes, length):
                 new_seq.append(item)
                 temp.add(tuple(new_seq))
         ans = temp
-    print(ans)
-    
-def make_tup_list(tuple_list):
-    # I want to return a list instead of a tuple so I can manipulate it
-    for i in tuple_list:
-        print(i)
-        for j in i:
-            print(j)
-            
     return ans
 
 def make_perm(outcomes, length):
@@ -183,29 +174,44 @@ def q6():
 def q7():
     """
     How many distinct subsets are in a set of length n, order isn't important...meaning (1,5) = (5,1)
+    will trouble shoot later
     """
     test_set = [1, 2, 7]
     
     total_sets = []
     for index_length in range(1, len(test_set) + 1):
         total_sets.append(set(make_perm(test_set, index_length)))
-#    print(total_sets)
     # sort, then append to new set
-#    sorte = []
-#    for ls in total_sets:
-#        for iter in ls:
-#            sorte.append(list(iter).sort())
-#    print(sorte)
-#    sorted_set = set(sorte)
-#    print(sorted_set)
+    sorte = []
+    for ls in total_sets:
+        for iter in ls:
+            sorte.append(list(iter).sort())
+    print("Question 7: 2^n")
+    
+def q8():
+    """
+    Combination: probability of being dealt 5 card hands of all the same suit
+    """
+    tot_cards = 52
+    num_cards = 5
+    cards_in_suit = 13
+    
+    prob_suit = 1.0000
+    for i in range(0, num_cards):
+        prob_suit *= (cards_in_suit - i) / (tot_cards - i)
+    
+    print("Qustion 8: {}".format(prob_suit))
+    
+    
     
 #q1()
 #q2()
-#q3()
+q3()
 #q4()
 #q5()
 #q6()
-q7()
+#q7()
+q8()
     
 
 
