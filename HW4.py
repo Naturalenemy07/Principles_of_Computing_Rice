@@ -204,7 +204,7 @@ def q8():
     
 def q9():
     """
-    Iterative program to print out Pascal's triangle
+    Iterative program to print out Pascal's triangle, I think the equation is m! /((m-n)!n!) - test it out and see if it matches
     """
 
     TRIANGLE_HEIGHT = 5
