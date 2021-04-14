@@ -204,10 +204,10 @@ def q8():
     
 def q9():
     """
-    Iterative program to print out Pascal's triangle, I think the equation is m! /((m-n)!n!) - test it out and see if it matches
+    Iterative program to print out Pascal's triangle, The answer is m! /((m-n)!n!)
     """
 
-    TRIANGLE_HEIGHT = 5
+    TRIANGLE_HEIGHT = 10
 
     def next_line(current_line):
         """
@@ -232,8 +232,13 @@ def q9():
             pascal_line = next_line(pascal_line)
             print(pascal_line)
 
+    # this program tests the pascal triangle numbers     
     run_example()
-    
+    for m in range(0, TRIANGLE_HEIGHT):
+        line = []
+        for n in range(0, m + 1):
+            line.append(str(int(math.factorial(m) / (math.factorial(m - n) * math.factorial(n)))))
+        print('  '.join(line))
     
 #q1()
 #q2()
@@ -244,6 +249,3 @@ def q9():
 #q7()
 #q8()
 q9()
-    
-
-
