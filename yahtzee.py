@@ -64,10 +64,13 @@ def expected_value(held_dice, num_die_sides, num_free_dice):
     Returns a floating point expected value
     """
     # generate all sequences of dice being rolled
-    
     rolled_dice_enum = gen_all_sequences(list(range(1, num_die_sides + 1)), num_free_dice)
     
-
+    # join tuples to create a list of all possible held and rerolled dice
+    total_dice = [held_dice + seq for seq in rolled_dice_enum]
+    
+    
+    
 
 def gen_all_holds(hand):
     """
@@ -110,7 +113,7 @@ def run_example():
 #import poc_holds_testsuite
 #poc_holds_testsuite.run_suite(gen_all_holds)
 
-held_dice = (2,2)
+held_dice = (6,2)
 num_die_sides = 6
 num_free_dice = 2
 expected_value(held_dice, num_die_sides, num_free_dice)  
