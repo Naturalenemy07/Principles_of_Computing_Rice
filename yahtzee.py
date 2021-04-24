@@ -99,7 +99,7 @@ def run_example():
     num_die_sides = 6
     hand = (1, 6)
     hand_score, hold = strategy(hand, num_die_sides)
-    print "Best strategy for hand", hand, "is to hold", hold, "with expected score", hand_score
+    print("Best strategy for hand", hand, "is to hold", hold, "with expected score", hand_score)
     
     
 #run_example()
