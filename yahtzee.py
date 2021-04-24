@@ -51,7 +51,6 @@ def score(hand):
     return temp_max_score
         
 
-
 def expected_value(held_dice, num_die_sides, num_free_dice):
     """
     Compute the expected value based on held_dice given that there
@@ -69,8 +68,10 @@ def expected_value(held_dice, num_die_sides, num_free_dice):
     # join tuples to create a list of all possible held and rerolled dice
     total_dice = [held_dice + seq for seq in rolled_dice_enum]
     
-    
-    
+    # calculate the expected value (score() of every roll / lenth of rolled dice enum)
+    total_sum = sum([score(seq) for seq in total_dice])
+    return float(total_sum)/len(total_dice)
+
 
 def gen_all_holds(hand):
     """
