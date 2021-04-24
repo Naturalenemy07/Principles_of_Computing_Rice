@@ -34,7 +34,22 @@ def score(hand):
 
     Returns an integer score 
     """
-    return 0
+    # set score variables
+    temp_max_score = 0
+    running_max_score = 0
+    
+    # iterate through hand
+    for numb in hand:
+        # add all equal numbers
+        for numb_iter in hand:
+            if numb_iter is numb:
+                running_max_score += numb_iter
+        # compare previous high score with current num
+        if running_max_score > temp_max_score:
+            temp_max_score = running_max_score
+        running_max_score = 0
+    return temp_max_score
+        
 
 
 def expected_value(held_dice, num_die_sides, num_free_dice):
@@ -82,13 +97,12 @@ def run_example():
     Compute the dice to hold and expected score for an example hand
     """
     num_die_sides = 6
-    hand = (1, 1, 1, 5, 6)
+    hand = (1, 6)
     hand_score, hold = strategy(hand, num_die_sides)
     print "Best strategy for hand", hand, "is to hold", hold, "with expected score", hand_score
     
     
-run_example()
-
+#run_example()
 
 #import poc_holds_testsuite
 #poc_holds_testsuite.run_suite(gen_all_holds)
@@ -96,6 +110,7 @@ run_example()
     
     
     
+
 
 
 
