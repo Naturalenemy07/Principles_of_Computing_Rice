@@ -22,25 +22,43 @@ def greedy_boss(days_in_simulation, bribe_cost_increment, plot_type = STANDARD):
     """
     
     # initialize necessary local variables
+    current_day = 0
+    cdi = 0
+    earnings = 0
+    total_earnings = 0
+    salary = INITIAL_SALARY
+    bribe_amount = INITIAL_BRIBE_COST
     
     # define  list consisting of days vs. total salary earned for analysis
-    days_vs_earnings = []
+    days_vs_earnings = [(0,0)]
 
     # Each iteration of this while loop simulates one bribe
     while current_day <= days_in_simulation:
         
         # update list with days vs total salary earned
+        days_vs_earnings.append((current_day, earnings))
+        
         # use plot_type to control whether regular or log/log plot
-        if plot_type == STANDARD:
-            pass
+        if plot_type:
+            print "standard", current_day
+            simpleplot.plot_lines('Standard Plot',500,500,"Day", "Total Earnings",[days_vs_earnings])
         else:
-            pass
+            print "loglog"
+        
         # check whether we have enough money to bribe without waiting
+        if earnings >= bribe_amount:
+            earnings -= bribe_amount
+            salary += SALARY_INCREMENT
+            bribe_amount += bribe_cost_increment
         
         # advance current_day to day of next bribe (DO NOT INCREMENT BY ONE DAY)
-
+        cdi = math.floor(bribe_amount / salary)
+        current_day += math.floor(bribe_amount / salary)	
+    
         # update state of simulation to reflect bribe
-   
+        earnings += cdi * salary
+        total_earnings += earnings
+        
     return days_vs_earnings
 
 
@@ -59,7 +77,7 @@ def run_simulations():
                          ["Bribe increment = 0", "Bribe increment = 500",
                           "Bribe increment = 1000", "Bribe increment = 2000"])
 
-run_simulations()
+#run_simulations()
 
 print greedy_boss(35, 100)
 # should print [(0, 0), (10, 1000), (16, 2200), (20, 3400), (23, 4600), (26, 6100), (29, 7900), (31, 9300), (33, 10900), (35, 12700)]
